@@ -3,6 +3,9 @@
 #ifndef CAFFE_COMMON_HPP_
 #define CAFFE_COMMON_HPP_
 
+#define BOOST_RANDOM_NO_STREAM_OPERATORS
+#define BOOST_NO_CXX11_HDR_ARRAY
+#include <boost/random/mersenne_twister.hpp>
 #include <boost/shared_ptr.hpp>
 #include <cublas_v2.h>
 #include <cuda.h>
@@ -10,11 +13,11 @@
 // cuda driver types
 #include <driver_types.h>
 #include <glog/logging.h>
-#include <mkl_vsl.h>
+//#include <mkl_vsl.h>
 
 // various checks for different function calls.
 #define CUDA_CHECK(condition) CHECK_EQ((condition), cudaSuccess)
-#define CUBLAS_CHECK(condition) CHECK_EQ((condition), CUBLAS_STATUS_SUCCESS)
+#define CUBLAS_CHECK(condition) CHECK_EQ((condition), CUBLAS_STATUS_SUCCESS);
 #define CURAND_CHECK(condition) CHECK_EQ((condition), CURAND_STATUS_SUCCESS)
 #define VSL_CHECK(condition) CHECK_EQ((condition), VSL_STATUS_OK)
 
@@ -83,8 +86,13 @@ class Caffe {
   inline static curandGenerator_t curand_generator() {
     return Get().curand_generator_;
   }
+
   // Returns the MKL random stream.
-  inline static VSLStreamStatePtr vsl_stream() { return Get().vsl_stream_; }
+  //inline static VSLStreamStatePtr vsl_stream() { return Get().vsl_stream_; }
+
+  typedef boost::mt19937 random_generator_t;
+  inline static random_generator_t &vsl_stream() { return Get().random_generator_; }
+
   // Returns the mode: running on CPU or GPU.
   inline static Brew mode() { return Get().mode_; }
   // Returns the phase: TRAIN or TEST.
@@ -108,7 +116,9 @@ class Caffe {
  protected:
   cublasHandle_t cublas_handle_;
   curandGenerator_t curand_generator_;
-  VSLStreamStatePtr vsl_stream_;
+  //VSLStreamStatePtr vsl_stream_;
+  random_generator_t random_generator_;
+
   Brew mode_;
   Phase phase_;
   static shared_ptr<Caffe> singleton_;

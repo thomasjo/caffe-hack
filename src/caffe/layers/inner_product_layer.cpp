@@ -1,7 +1,7 @@
 // Copyright 2013 Yangqing Jia
 
 
-#include <mkl.h>
+//#include <mkl.h>
 #include <cublas_v2.h>
 
 #include <vector>
@@ -129,6 +129,7 @@ Dtype InnerProductLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
     caffe_gpu_gemv<Dtype>(CblasTrans, M_, N_, (Dtype)1., top_diff,
         reinterpret_cast<const Dtype*>(bias_multiplier_->gpu_data()),
         (Dtype)0., this->blobs_[1]->mutable_gpu_diff());
+	CUDA_CHECK(cudaDeviceSynchronize()); 
   }
   if (propagate_down) {
     // Gradient with respect to bottom data

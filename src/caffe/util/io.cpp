@@ -2,19 +2,18 @@
 
 #include <stdint.h>
 #include <fcntl.h>
+#include <io.h>
+
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/highgui/highgui_c.h>
-#include <opencv2/imgproc/imgproc.hpp>
 
 #include <algorithm>
 #include <string>
 #include <iostream>
 #include <fstream>
 
+#include "opencvlib.h"
 #include "caffe/common.hpp"
 #include "caffe/util/io.hpp"
 #include "caffe/proto/caffe.pb.h"

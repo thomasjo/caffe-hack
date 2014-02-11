@@ -1,7 +1,7 @@
 // Copyright Yangqing Jia 2013
 
 #include <cstdio>
-
+#include <iostream>
 #include <algorithm>
 #include <string>
 #include <vector>

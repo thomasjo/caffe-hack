@@ -34,6 +34,7 @@ data/*
 
 # anything under distribute
 distribute/*
+3rdparty/*
 
 # user's specified config
 Makefile.config

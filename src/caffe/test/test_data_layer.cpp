@@ -4,6 +4,8 @@
 #include <leveldb/db.h>
 
 #include <string>
+#include <iostream>
+#include <sstream>
 
 #include "gtest/gtest.h"
 #include "caffe/blob.hpp"
@@ -14,10 +16,12 @@
 #include "caffe/test/test_caffe_main.hpp"
 
 using std::string;
+using std::stringstream;
 
 namespace caffe {
 
 extern cudaDeviceProp CAFFE_TEST_CUDA_PROP;
+char file_path[256];
 
 template <typename Dtype>
 class DataLayerTest : public ::testing::Test {
@@ -30,7 +34,9 @@ class DataLayerTest : public ::testing::Test {
     blob_top_vec_.push_back(blob_top_data_);
     blob_top_vec_.push_back(blob_top_label_);
     // Create the leveldb
-    filename = tmpnam(NULL); // get temp name
+	
+	sprintf(file_path,"../tmp/%s",tmpnam(NULL));// get temp name
+    filename = file_path; 
     LOG(INFO) << "Using temporary leveldb " << filename;
     leveldb::DB* db;
     leveldb::Options options;

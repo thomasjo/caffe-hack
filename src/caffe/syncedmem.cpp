@@ -12,10 +12,12 @@ namespace caffe {
 SyncedMemory::~SyncedMemory() {
   if (cpu_ptr_) {
     CaffeFreeHost(cpu_ptr_);
+	cpu_ptr_ = NULL;
   }
 
   if (gpu_ptr_) {
     CUDA_CHECK(cudaFree(gpu_ptr_));
+	gpu_ptr_ = NULL;
   }
 }
 

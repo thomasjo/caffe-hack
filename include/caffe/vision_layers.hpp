@@ -4,8 +4,8 @@
 #define CAFFE_VISION_LAYERS_HPP_
 
 #include <leveldb/db.h>
-#include <pthread.h>
-
+//#include <pthread.h>
+#include <thread>
 #include <vector>
 
 #include "caffe/layer.hpp"
@@ -314,7 +314,8 @@ class DataLayer : public Layer<Dtype> {
   int datum_height_;
   int datum_width_;
   int datum_size_;
-  pthread_t thread_;
+  //pthread_t thread_;
+  std::thread thread_;
   shared_ptr<Blob<Dtype> > prefetch_data_;
   shared_ptr<Blob<Dtype> > prefetch_label_;
   Blob<Dtype> data_mean_;

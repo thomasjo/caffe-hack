@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 #include <leveldb/db.h>
-#include <pthread.h>
+//#include <pthread.h>
 
 #include <string>
 #include <vector>
@@ -117,7 +117,8 @@ void* DataLayerPrefetch(void* layer_pointer) {
 template <typename Dtype>
 DataLayer<Dtype>::~DataLayer<Dtype>() {
   // Finally, join the thread
-  CHECK(!pthread_join(thread_, NULL)) << "Pthread joining failed.";
+	thread_.join();
+  //CHECK(!pthread_join(thread_, NULL)) << "Pthread joining failed.";
 }
 
 template <typename Dtype>
@@ -202,8 +203,9 @@ void DataLayer<Dtype>::SetUp(const vector<Blob<Dtype>*>& bottom,
   prefetch_label_->mutable_cpu_data();
   data_mean_.cpu_data();
   DLOG(INFO) << "Initializing prefetch";
-  CHECK(!pthread_create(&thread_, NULL, DataLayerPrefetch<Dtype>,
-      reinterpret_cast<void*>(this))) << "Pthread execution failed.";
+  //CHECK(!pthread_create(&thread_, NULL, DataLayerPrefetch<Dtype>,
+  //    reinterpret_cast<void*>(this))) << "Pthread execution failed.";
+  thread_ = thread(DataLayerPrefetch<Dtype>,reinterpret_cast<void*>(this));
   DLOG(INFO) << "Prefetch initialized.";
 }
 
@@ -211,22 +213,26 @@ template <typename Dtype>
 void DataLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
       vector<Blob<Dtype>*>* top) {
   // First, join the thread
-  CHECK(!pthread_join(thread_, NULL)) << "Pthread joining failed.";
+  //CHECK(!pthread_join(thread_, NULL)) << "Pthread joining failed.";
+  thread_.join();
   // Copy the data
   memcpy((*top)[0]->mutable_cpu_data(), prefetch_data_->cpu_data(),
       sizeof(Dtype) * prefetch_data_->count());
   memcpy((*top)[1]->mutable_cpu_data(), prefetch_label_->cpu_data(),
       sizeof(Dtype) * prefetch_label_->count());
   // Start a new prefetch thread
-  CHECK(!pthread_create(&thread_, NULL, DataLayerPrefetch<Dtype>,
-      reinterpret_cast<void*>(this))) << "Pthread execution failed.";
+  //CHECK(!pthread_create(&thread_, NULL, DataLayerPrefetch<Dtype>,
+  //    reinterpret_cast<void*>(this))) << "Pthread execution failed.";
+  //DataLayerPrefetch<Dtype>(reinterpret_cast<void*>(this));
+  thread_ = thread(DataLayerPrefetch<Dtype>,reinterpret_cast<void*>(this));
 }
 
 template <typename Dtype>
 void DataLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
       vector<Blob<Dtype>*>* top) {
   // First, join the thread
-  CHECK(!pthread_join(thread_, NULL)) << "Pthread joining failed.";
+  //CHECK(!pthread_join(thread_, NULL)) << "Pthread joining failed.";
+  thread_.join();
   // Copy the data
   CUDA_CHECK(cudaMemcpy((*top)[0]->mutable_gpu_data(),
       prefetch_data_->cpu_data(), sizeof(Dtype) * prefetch_data_->count(),
@@ -235,8 +241,10 @@ void DataLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& bottom,
       prefetch_label_->cpu_data(), sizeof(Dtype) * prefetch_label_->count(),
       cudaMemcpyHostToDevice));
   // Start a new prefetch thread
-  CHECK(!pthread_create(&thread_, NULL, DataLayerPrefetch<Dtype>,
-      reinterpret_cast<void*>(this))) << "Pthread execution failed.";
+  //CHECK(!pthread_create(&thread_, NULL, DataLayerPrefetch<Dtype>,
+  //    reinterpret_cast<void*>(this))) << "Pthread execution failed.";
+  //DataLayerPrefetch<Dtype>(reinterpret_cast<void*>(this));
+  thread_ = thread(DataLayerPrefetch<Dtype>,reinterpret_cast<void*>(this));
 }
 
 // The backward operations are dummy - they do not carry any computation.
