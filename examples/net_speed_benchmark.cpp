@@ -16,6 +16,7 @@
 #include "caffe/solver.hpp"
 
 using namespace caffe;
+typedef unsigned int uint;
 
 int main(int argc, char** argv) {
 

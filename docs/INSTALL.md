@@ -22,6 +22,5 @@ Currently it can be built by VS2012 for x64 flatform only. This is because the d
 
 #### Known Issues
 I have trained on ImageNet with this windows porting as well. And some Issues found are:
-- Loading protobuffer from binary file is not successful.
 - Batch size of 256 exceeds the maximum block number for cuda on my GTX Titan. So using size of 200 is fine.
 - The speed is much slower than the one build on Ubuntu. 20 iterations take 79s on Windows, whereas same number of iterations take about 30s.
