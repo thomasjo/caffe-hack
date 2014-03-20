@@ -7,7 +7,7 @@ You can download the windows x64 [standalone package](https://dl.dropboxusercont
 You may need the followings to build the code:
 - Windows 64-bit
 - MS Visual Studio 2012
-- CUDA toolkit
+- CUDA toolkit 5.5
 - Other dependencies which you can directly download from [here](https://dl.dropboxusercontent.com/u/3466743/caffe-vs2012/dependency.7z).
 
 #### Build Steps
