@@ -7,7 +7,7 @@ You can download the windows x64 [standalone package](https://dl.dropboxusercont
 You may need the followings to build the code:
 - Windows 64-bit
 - MS Visual Studio 2012
-- CUDA toolkit 5.5
+- CUDA toolkit 6.0
 - Other dependencies which you can directly download from [here](https://dl.dropboxusercontent.com/u/3466743/caffe-vs2012/dependency.7z).
 
 #### Build Steps
@@ -23,4 +23,4 @@ Currently it can be built by VS2012 for x64 flatform only. This is because the d
 #### Known Issues
 I have trained on ImageNet with this windows porting as well. And some Issues found are:
 - Batch size of 256 exceeds the maximum block number for cuda on my GTX Titan. So using size of 200 is fine.
-- The speed is much slower than the one build on Ubuntu. 20 iterations take 79s on Windows, whereas same number of iterations take about 30s.
+- The speed is much slower than the one build on Ubuntu. 20 iterations take 79s on Windows, whereas same number of iterations take about 30s on Ubuntu.
