@@ -11,6 +11,7 @@
 #include <map>
 #include <fstream>  // NOLINT(readability/streams)
 #include <utility>
+#include <math.h>
 
 #include "opencv2/core/core.hpp"
 #include "opencv2/highgui/highgui.hpp"
@@ -26,6 +27,10 @@ using std::string;
 using std::map;
 using std::pair;
 
+double round(double r)
+{
+    return (r > 0.0) ? floor(r + 0.5) : ceil(r - 0.5);
+}
 // caffe.proto > LayerParameter > WindowDataParameter
 //   'source' field specifies the window_file
 //   'crop_size' indicates the desired warped size
@@ -422,7 +427,7 @@ void WindowDataLayer<Dtype>::CreatePrefetchThread() {
   // Create the thread.
   //CHECK(!pthread_create(&thread_, NULL, WindowDataLayerPrefetch<Dtype>,
   //      static_cast<void*>(this))) << "Pthread execution failed.";
-  thread_ = thread(DataLayerPrefetch<Dtype>,reinterpret_cast<void*>(this));
+  thread_ = thread(WindowDataLayerPrefetch<Dtype>,reinterpret_cast<void*>(this));
 }
 
 template <typename Dtype>

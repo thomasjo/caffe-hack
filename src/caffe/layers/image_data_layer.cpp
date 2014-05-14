@@ -249,7 +249,7 @@ void ImageDataLayer<Dtype>::CreatePrefetchThread() {
   // Create the thread.
   //CHECK(!pthread_create(&thread_, NULL, ImageDataLayerPrefetch<Dtype>,
   //      static_cast<void*>(this))) << "Pthread execution failed.";
-  thread_ = thread(DataLayerPrefetch<Dtype>,reinterpret_cast<void*>(this));
+  thread_ = thread(ImageDataLayerPrefetch<Dtype>,reinterpret_cast<void*>(this));
 }
 
 template <typename Dtype>
