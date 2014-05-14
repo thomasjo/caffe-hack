@@ -1,4 +1,5 @@
 // Copyright 2014 BVLC and contributors.
+#include "caffe/common.hpp"
 
 #include <boost/math/special_functions/next.hpp>
 #include <boost/random.hpp>
@@ -6,7 +7,7 @@
 
 #include <limits>
 
-#include "caffe/common.hpp"
+
 #include "caffe/util/math_functions.hpp"
 #include "caffe/util/rng.hpp"
 
@@ -402,7 +403,7 @@ void caffe_gpu_dot<double>(const int n, const double* x, const double* y,
     double * out) {
   CUBLAS_CHECK(cublasDdot(Caffe::cublas_handle(), n, x, 1, y, 1, out));
 }
-
+/*
 template <>
 int caffe_cpu_hamming_distance<float>(const int n, const float* x,
                                   const float* y) {
@@ -424,7 +425,7 @@ int caffe_cpu_hamming_distance<double>(const int n, const double* x,
   }
   return dist;
 }
-
+*/
 template <>
 float caffe_cpu_asum<float>(const int n, const float* x) {
   return cblas_sasum(n, x, 1);

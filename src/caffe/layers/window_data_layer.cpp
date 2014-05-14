@@ -3,7 +3,7 @@
 // Based on data_layer.cpp by Yangqing Jia.
 
 #include <stdint.h>
-#include <pthread.h>
+//#include <pthread.h>
 
 #include <algorithm>
 #include <string>
@@ -420,13 +420,15 @@ void WindowDataLayer<Dtype>::CreatePrefetchThread() {
     prefetch_rng_.reset();
   }
   // Create the thread.
-  CHECK(!pthread_create(&thread_, NULL, WindowDataLayerPrefetch<Dtype>,
-        static_cast<void*>(this))) << "Pthread execution failed.";
+  //CHECK(!pthread_create(&thread_, NULL, WindowDataLayerPrefetch<Dtype>,
+  //      static_cast<void*>(this))) << "Pthread execution failed.";
+  thread_ = thread(DataLayerPrefetch<Dtype>,reinterpret_cast<void*>(this));
 }
 
 template <typename Dtype>
 void WindowDataLayer<Dtype>::JoinPrefetchThread() {
-  CHECK(!pthread_join(thread_, NULL)) << "Pthread joining failed.";
+  //CHECK(!pthread_join(thread_, NULL)) << "Pthread joining failed.";
+  thread_.join();
 }
 
 template <typename Dtype>

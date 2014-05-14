@@ -8,9 +8,10 @@
 #include <vector>
 
 #include "leveldb/db.h"
-#include "pthread.h"
+//#include "pthread.h"
+#include <thread>
 #include "boost/scoped_ptr.hpp"
-#include "hdf5.h"
+//#include "hdf5.h"
 
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"
@@ -297,7 +298,7 @@ class DataLayer : public Layer<Dtype> {
   int datum_height_;
   int datum_width_;
   int datum_size_;
-  pthread_t thread_;
+  std::thread thread_;
   shared_ptr<Blob<Dtype> > prefetch_data_;
   shared_ptr<Blob<Dtype> > prefetch_label_;
   Blob<Dtype> data_mean_;
@@ -365,7 +366,7 @@ class FlattenLayer : public Layer<Dtype> {
 
   int count_;
 };
-
+/*
 template <typename Dtype>
 class HDF5OutputLayer : public Layer<Dtype> {
  public:
@@ -419,7 +420,7 @@ class HDF5DataLayer : public Layer<Dtype> {
   Blob<Dtype> data_blob_;
   Blob<Dtype> label_blob_;
 };
-
+*/
 template <typename Dtype>
 class HingeLossLayer : public Layer<Dtype> {
  public:
@@ -504,7 +505,7 @@ class ImageDataLayer : public Layer<Dtype> {
   int datum_height_;
   int datum_width_;
   int datum_size_;
-  pthread_t thread_;
+  std::thread thread_;
   shared_ptr<Blob<Dtype> > prefetch_data_;
   shared_ptr<Blob<Dtype> > prefetch_label_;
   Blob<Dtype> data_mean_;
@@ -813,7 +814,7 @@ class WindowDataLayer : public Layer<Dtype> {
   virtual unsigned int PrefetchRand();
 
   shared_ptr<Caffe::RNG> prefetch_rng_;
-  pthread_t thread_;
+  std::thread thread_;
   shared_ptr<Blob<Dtype> > prefetch_data_;
   shared_ptr<Blob<Dtype> > prefetch_label_;
   Blob<Dtype> data_mean_;

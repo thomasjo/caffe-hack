@@ -1,9 +1,9 @@
 // Copyright 2014 BVLC and contributors.
-
+#include "caffe/common.hpp"
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <cuda_runtime.h>
 
-#include "caffe/common.hpp"
+
 #include "caffe/util/benchmark.hpp"
 
 namespace caffe {

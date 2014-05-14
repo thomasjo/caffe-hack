@@ -545,7 +545,7 @@ LayerParameter_LayerType UpgradeV0LayerType(const string& type) {
     return LayerParameter_LayerType_NONE;
   }
 }
-
+/*
 void NetParameterToPrettyPrint(const NetParameter& param,
                                NetParameterPrettyPrint* pretty_param) {
   pretty_param->Clear();
@@ -565,7 +565,7 @@ void NetParameterToPrettyPrint(const NetParameter& param,
     pretty_param->add_layers()->CopyFrom(param.layers(i));
   }
 }
-
+*/
 void ReadNetParamsFromTextFileOrDie(const string& param_file,
                                     NetParameter* param) {
   CHECK(ReadProtoFromTextFile(param_file, param))

@@ -6,6 +6,9 @@
 #include <cublas_v2.h>
 #include <stdint.h>
 #include <cmath>  // for std::fabs and std::signbit
+#if _MSC_VER < 1800
+template<typename DType> inline bool signbit(DType num) { return _copysign(1.0, num) < 0; }
+#endif
 
 #include "glog/logging.h"
 
@@ -221,7 +224,7 @@ void caffe_gpu_sign(const int n, const Dtype* x, Dtype* y);
 
 // This returns a nonzero value if the input has its sign bit set.
 // The name sngbit is meant to avoid conflicts with std::signbit in the macro
-using std::signbit;
+//using std::signbit;
 DEFINE_CAFFE_CPU_UNARY_FUNC(sgnbit, y[i] = signbit(x[i]));
 
 template<typename Dtype>

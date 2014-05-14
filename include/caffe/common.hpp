@@ -3,6 +3,10 @@
 #ifndef CAFFE_COMMON_HPP_
 #define CAFFE_COMMON_HPP_
 
+#define BOOST_ALL_NO_LIB
+#define BOOST_RANDOM_NO_STREAM_OPERATORS
+#define BOOST_NO_CXX11_HDR_ARRAY
+
 #include <boost/shared_ptr.hpp>
 #include <cublas_v2.h>
 #include <cuda.h>
