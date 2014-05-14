@@ -1,8 +1,8 @@
-// Copyright 2013 Yangqing Jia
+// Copyright 2014 BVLC and contributors.
 
 #include <cstring>
-#include <cuda_runtime.h>
 
+#include "cuda_runtime.h"
 #include "gtest/gtest.h"
 #include "caffe/common.hpp"
 #include "caffe/syncedmem.hpp"
@@ -19,18 +19,15 @@ TEST_F(CommonTest, TestCublasHandler) {
   EXPECT_TRUE(Caffe::cublas_handle());
 }
 
-TEST_F(CommonTest, TestVslStream) {
-  //EXPECT_TRUE(Caffe::vsl_stream());
-    EXPECT_TRUE(true);
-}
-
 TEST_F(CommonTest, TestBrewMode) {
+  Caffe::set_mode(Caffe::CPU);
   EXPECT_EQ(Caffe::mode(), Caffe::CPU);
   Caffe::set_mode(Caffe::GPU);
   EXPECT_EQ(Caffe::mode(), Caffe::GPU);
 }
 
 TEST_F(CommonTest, TestPhase) {
+  Caffe::set_phase(Caffe::TRAIN);
   EXPECT_EQ(Caffe::phase(), Caffe::TRAIN);
   Caffe::set_phase(Caffe::TEST);
   EXPECT_EQ(Caffe::phase(), Caffe::TEST);
@@ -40,36 +37,30 @@ TEST_F(CommonTest, TestRandSeedCPU) {
   SyncedMemory data_a(10 * sizeof(int));
   SyncedMemory data_b(10 * sizeof(int));
   Caffe::set_random_seed(1701);
-  //viRngBernoulli(VSL_RNG_METHOD_BERNOULLI_ICDF, Caffe::vsl_stream(),
-  //      10, (int*)data_a.mutable_cpu_data(), 0.5);
-  caffe_vRngBernoulli(10, (int*)data_a.mutable_cpu_data(), 0.5);
+  caffe_rng_bernoulli(10, 0.5, static_cast<int*>(data_a.mutable_cpu_data()));
 
   Caffe::set_random_seed(1701);
-  //viRngBernoulli(VSL_RNG_METHOD_BERNOULLI_ICDF, Caffe::vsl_stream(),
-  //      10, (int*)data_b.mutable_cpu_data(), 0.5);
-  caffe_vRngBernoulli(10, (int*)data_b.mutable_cpu_data(), 0.5);
+  caffe_rng_bernoulli(10, 0.5, static_cast<int*>(data_b.mutable_cpu_data()));
 
   for (int i = 0; i < 10; ++i) {
-    EXPECT_EQ(((const int*)(data_a.cpu_data()))[i],
-        ((const int*)(data_b.cpu_data()))[i]);
+    EXPECT_EQ(static_cast<const int*>(data_a.cpu_data())[i],
+        static_cast<const int*>(data_b.cpu_data())[i]);
   }
 }
-
 
 TEST_F(CommonTest, TestRandSeedGPU) {
   SyncedMemory data_a(10 * sizeof(unsigned int));
   SyncedMemory data_b(10 * sizeof(unsigned int));
   Caffe::set_random_seed(1701);
   CURAND_CHECK(curandGenerate(Caffe::curand_generator(),
-        (unsigned int*)data_a.mutable_gpu_data(), 10));
+        reinterpret_cast<unsigned int*>(data_a.mutable_gpu_data()), 10));
   Caffe::set_random_seed(1701);
   CURAND_CHECK(curandGenerate(Caffe::curand_generator(),
-        (unsigned int*)data_b.mutable_gpu_data(), 10));
+        reinterpret_cast<unsigned int*>(data_b.mutable_gpu_data()), 10));
   for (int i = 0; i < 10; ++i) {
     EXPECT_EQ(((const unsigned int*)(data_a.cpu_data()))[i],
         ((const unsigned int*)(data_b.cpu_data()))[i]);
   }
 }
-
 
 }  // namespace caffe
