@@ -8,19 +8,29 @@ You may need the followings to build the code:
 - Windows 64-bit
 - MS Visual Studio 2012
 - CUDA toolkit 6.0
-- Other dependencies which you can directly download from [here](https://dl.dropboxusercontent.com/u/3466743/caffe-vs2012/dependency.7z).
+- Other dependencies which you can directly download from [here](http://dl.dropboxusercontent.com/u/3466743/caffe-vs2012/dependency-20140514.7z).
 
 #### Build Steps
 Currently it can be built by VS2012 for x64 flatform only. This is because the dependencies mentioned above is cross-compiled to support x64 only. If you want to build on 32bit windows, you need to rebuild your own 3rd-party libraries.
 - Check out the code and switch to *windows* branch
 - Download the dependency file and extract the folders inside to project root directory.
-- Include any .cpp you want to build in the ./example directory to MainCaller.cpp.
-- Open the solution file in ./build/MSVC
+- Include any .cpp you want to build in the `./tools` directory to MainCaller.cpp.
+- Open the solution file in `./build/MSVC`
 - Switch build target to x64 platform (Both debug and release are OK).
-- Build the code and you may find the *MainCaller.exe* in ./bin
-- Run *./scripts/runMNIST* to see the training progress if you choose to build train_net.cpp which is the default one in MainCaller.cpp.
+- Build the code and you may find the `./bin/MainCaller.exe`
+
+#### Train MNIST dataset
+- Suppose you choose to build train_net.cpp which is the default one in MainCaller.cpp
+- If you do not have GPU, please change it to CPU in 
+- Goto directory `./examples/mnist`
+- Double click `get_mnist_leveldb.bat` to download the dataset in leveldb format.
+- Double click `train_lenet.bat` to see the training progress .
 
 #### Known Issues
 I have trained on ImageNet with this windows porting as well. And some Issues found are:
 - Batch size of 256 exceeds the maximum block number for cuda on my GTX Titan. So using size of 200 is fine.
 - The speed is much slower than the one build on Ubuntu. 20 iterations take 79s on Windows, whereas same number of iterations take about 30s on Ubuntu.
+
+#### Bug Report
+- Please create new issues in [github](https://github.com/niuzhiheng/caffe/issues) if you find any bug.
+- If you have new pull requests, they are very welcome.
