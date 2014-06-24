@@ -1,4 +1,4 @@
 #include "../../tools/train_net.cpp"
-//#include "net_speed_benchmark.cpp"
-//#include "finetune_net.cpp"
-//#include "test_net.cpp"
+//#include "../../tools/net_speed_benchmark.cpp"
+//#include "../../tools/finetune_net.cpp"
+//#include "../../tools/test_net.cpp"

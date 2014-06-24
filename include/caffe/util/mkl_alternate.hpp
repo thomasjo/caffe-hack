@@ -11,7 +11,7 @@
 
 extern "C" {
 //#include <cblas.h>
-#include <gsl/gsl_cblas.h>
+#include <openblas/cblas.h>
 }
 #include <math.h>
 

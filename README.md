@@ -9,7 +9,7 @@ You may need the followings to build the code:
 - Windows 64-bit
 - MS Visual Studio 2012
 - CUDA toolkit 6.0
-- Other dependencies which you can directly download from [here](http://dl.dropboxusercontent.com/u/3466743/caffe-vs2012/dependency-20140514.7z).
+- Other dependencies which you can directly download from [here](http://dl.dropboxusercontent.com/u/3466743/caffe-vs2012/dependency-20140624.7z).
 
 #### Build Steps
 Currently it can be built by VS2012 for x64 flatform only. This is because the dependencies mentioned above is cross-compiled to support x64 only. If you want to build on 32bit windows, you need to rebuild your own 3rd-party libraries.
@@ -29,8 +29,8 @@ Currently it can be built by VS2012 for x64 flatform only. This is because the d
 
 #### Known Issues
 I have trained on ImageNet with this windows porting as well. And some Issues found are:
-- Batch size of 256 exceeds the maximum block number for cuda on my GTX Titan. So using size of 200 is fine.
-- The speed is much slower than the one build on Ubuntu. 20 iterations take 79s on Windows, whereas same number of iterations take about 30s on Ubuntu.
+- It takes obvious longer time when you compile for the first time. Therefore please refrain from using `clean & rebuild`.
+- The speed is much slower than the one built on Ubuntu. 20 iterations take 79s on Windows, whereas same number of iterations take about 30s on Ubuntu (on GTX Titan).
 
 #### Bug Report
 - Please create new issues in [github](https://github.com/niuzhiheng/caffe/issues) if you find any bug.
