@@ -28,9 +28,8 @@ Currently it can be built by VS2012 for x64 flatform only. This is because the d
 - Double click `train_lenet.bat` to see the training progress .
 
 #### Known Issues
-I have trained on ImageNet with this windows porting as well. And some Issues found are:
 - It takes obvious longer time when you compile for the first time. Therefore please refrain from using `clean & rebuild`.
-- The speed is much slower than the one built on Ubuntu. 20 iterations take 79s on Windows, whereas same number of iterations take about 30s on Ubuntu (on GTX Titan).
+- I have trained on ImageNet with this windows porting as well. The speed is much slower than the one built on Ubuntu. 20 iterations take 79s on Windows, whereas same number of iterations take about 30s on Ubuntu (on GTX Titan).
 
 #### Bug Report
 - Please create new issues in [github](https://github.com/niuzhiheng/caffe/issues) if you find any bug.

@@ -13,6 +13,7 @@
 #include <curand.h>
 #include <driver_types.h>  // cuda driver types
 #include <glog/logging.h>
+#include <wincompat.h>
 
 // Disable the copy and assignment operator for a class.
 #define DISABLE_COPY_AND_ASSIGN(classname) \

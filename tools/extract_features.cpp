@@ -87,7 +87,7 @@ int feature_extraction_pipeline(int argc, char** argv) {
    }
    */
   string feature_extraction_proto(argv[++arg_pos]);
-  shared_ptr<Net<Dtype> > feature_extraction_net(
+  boost::shared_ptr<Net<Dtype> > feature_extraction_net(
       new Net<Dtype>(feature_extraction_proto));
   feature_extraction_net->CopyTrainedLayersFrom(pretrained_binary_proto);
 
@@ -121,7 +121,7 @@ int feature_extraction_pipeline(int argc, char** argv) {
   int image_index = 0;
   for (int batch_index = 0; batch_index < num_mini_batches; ++batch_index) {
     feature_extraction_net->Forward(input_vec);
-    const shared_ptr<Blob<Dtype> > feature_blob = feature_extraction_net
+    const boost::shared_ptr<Blob<Dtype> > feature_blob = feature_extraction_net
         ->blob_by_name(extract_feature_blob_name);
     int num_features = feature_blob->num();
     int dim_features = feature_blob->count() / num_features;

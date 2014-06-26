@@ -19,7 +19,6 @@
 #include "caffe/solver.hpp"
 
 using namespace caffe;  // NOLINT(build/namespaces)
-typedef unsigned int uint;
 
 int main(int argc, char** argv) {
   int total_iter = 50;
