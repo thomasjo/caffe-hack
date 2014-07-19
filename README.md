@@ -34,3 +34,4 @@ Currently it can be built by VS2012 for x64 flatform only. This is because the d
 #### Bug Report
 - Please create new issues in [github](https://github.com/niuzhiheng/caffe/issues) if you find any bug.
 - If you have new pull requests, they are very welcome.
+- Before you do that, you may wish to read this [wiki page](https://github.com/niuzhiheng/caffe/wiki) for more information.
