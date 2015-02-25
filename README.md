@@ -15,9 +15,9 @@ You may need the followings to build the code:
 Currently it can be built by VS2012 for x64 flatform only. This is because the dependencies mentioned above is cross-compiled to support x64 only. If you want to build on 32bit windows, you need to rebuild your own 3rd-party libraries.
 - Check out the code and switch to *windows* branch
 - Download the dependency file and extract the folders inside to project root directory.
-- Include any .cpp you want to build in the `./tools` directory to MainCaller.cpp.
 - Open the solution file in `./build/MSVC`
 - Switch build target to x64 platform (Both debug and release are OK).
+- Include any .cpp you want to build in the `./tools` directory to MainCaller.cpp.
 - Build the code and you may find the `./bin/MainCaller.exe`
 
 #### Train MNIST dataset
@@ -32,6 +32,7 @@ Currently it can be built by VS2012 for x64 flatform only. This is because the d
 - To support different [GPU compute capabilities](http://en.wikipedia.org/wiki/CUDA#Supported_GPUs), the code is built for several compute capability versions. If you know the exact version of your GPU device, you may remove the support to other versions to speed up the compiling procedure. You may wish to take a look at #25 for more details.
 
 #### Known Issues
+- Because I am very busy doing my own project (may or may not be deep learning related), I am sorry that I do not have time to update the code to keep pace with the official Caffe development. As for the same reason, I will not be able to answer all the questions or solve the issues for some time.
 - ~~I have trained on ImageNet with this windows porting as well. The speed is much slower than the one built on Ubuntu. 20 iterations take 79s on Windows, whereas same number of iterations take about 30s on Ubuntu (on GTX Titan).~~
 - The above issue has been solved since the upgrade of GPU driver to 340.62 and CUDA to 6.5. The same hardware is now running 26 sencods for 20 iterations on Windows. Hooray!!
 
